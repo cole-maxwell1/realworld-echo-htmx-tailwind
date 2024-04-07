@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   conduit:
@@ -17,13 +17,15 @@ services:
     depends_on:
       - psql
   psql:
-    image: postgres:latest
+    image: postgres:16
     env_file:
       # Ensure that the variables in .env match the same variables in devcontainer.json
       - .env
     restart: unless-stopped
     volumes:
       - psql_volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 volumes:
   psql_volume:

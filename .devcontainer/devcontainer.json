@@ -1,8 +1,9 @@
 {
-	"name": "Go & PostgreSQL",
+	"name": "Realworld Echo, HTMX, TAILWIND and Postgres",
 	"dockerComposeFile": "docker-compose.yml",
 	"workspaceFolder": "/workspace",
 	"service": "conduit",
+	"shutdownAction": "stopCompose",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
@@ -19,14 +20,16 @@
 				"a-h.templ",
 				"bradlc.vscode-tailwindcss",
 				"ms-vscode.makefile-tools",
-				"foxundermoon.shell-format"
+				"foxundermoon.shell-format",
+				"GitHub.vscode-pull-request-github",
+				"GitHub.vscode-github-actions",
+				"tamasfe.even-better-toml"
 			]
 		}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		3000,
-		5432
+		3000
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "chmod u+x /workspace/.devcontainer/post-install.sh && /workspace/.devcontainer/post-install.sh",

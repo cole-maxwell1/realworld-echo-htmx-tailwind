@@ -8,6 +8,7 @@ all: build
 build:
 	@echo "Building..."
 	@templ generate
+	@npx npx tailwindcss -i ./cmd/web/css/input.css -o ./cmd/web/css/output.css
 	@go build -o ${BUILD_DIR}/${BINARY_NAME} ${MAIN}
 
 # Run the application

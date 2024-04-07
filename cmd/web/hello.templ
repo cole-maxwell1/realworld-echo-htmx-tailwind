@@ -2,11 +2,13 @@ package web
 
 templ HelloForm() {
 	@Base() {
-		<form hx-post="/hello" method="POST" hx-target="#hello-container">
-			<input id="name" name="name" type="text"/>
-			<button type="submit">Submit</button>
-		</form>
-		<div id="hello-container"></div>
+		<div class="flex flex-col gap-2 bg-zinc-800 h-1/2">
+			<form class="" hx-post="/hello" method="POST" hx-target="#hello-container">
+				<input id="name" name="name" type="text"/>
+				<button class="text-white" type="submit">Submit</button>
+			</form>
+			<div class="text-white" id="hello-container"></div>
+		</div>
 	}
 }
 

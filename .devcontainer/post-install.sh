@@ -12,15 +12,8 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 # Add .zshrc for theme, plugin, and path configs
 cp /workspace/.devcontainer/.zshrc $HOME/.zshrc
 
-# Install golang IDE Tooling
-go install golang.org/x/tools/gopls@latest #Language server from Google
-go install github.com/cweill/gotests/gotests@v1.6.0 #Generate unit tests
-go install github.com/fatih/gomodifytags@v1.16.0 #Modify tags on structs 
-go install github.com/josharian/impl@v1.1.0 #Stubs for interfaces
-go install github.com/haya14busa/goplay/cmd/goplay@v1.0.0 #Go playground
-go install github.com/go-delve/delve/cmd/dlv@latest #Go debugger
-go install honnef.co/go/tools/cmd/staticcheck@latest #Linter
+# Install project modules
+go mod download
 
-# Install project specific development dependencies
-go install github.com/a-h/templ/cmd/templ@latest
-go install github.com/cosmtrek/air@latest
+# Install NPM dependencies
+npm install /workspace

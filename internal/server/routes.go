@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
+	"github.com/cole-maxwell1/realworld-echo-htmx-tailwind/cmd/web"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/cole-maxwell1/realworld-echo-htmx-tailwind/cmd/web"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
@@ -15,6 +15,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.Use(middleware.Recover())
 	fileServer := http.FileServer(http.FS(web.Files))
 	e.GET("/js/*", echo.WrapHandler(fileServer))
+	e.GET("/css/output.css", echo.WrapHandler(fileServer))
 
 	e.GET("/web", echo.WrapHandler(templ.Handler(web.HelloForm())))
 	e.POST("/hello", echo.WrapHandler(http.HandlerFunc(web.HelloWebHandler)))
