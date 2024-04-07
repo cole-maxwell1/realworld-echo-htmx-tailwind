@@ -19,7 +19,7 @@ type Server struct {
 }
 
 func NewServer() *http.Server {
-	port, _ := strconv.Atoi(os.Getenv("PORT"))
+	port, _ := strconv.Atoi(getEnvOrFallback("PORT", "3000"))
 	NewServer := &Server{
 		port: port,
 
@@ -36,4 +36,12 @@ func NewServer() *http.Server {
 	}
 
 	return server
+}
+
+func getEnvOrFallback(key, fallback string) string {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		value = fallback
+	}
+	return value
 }

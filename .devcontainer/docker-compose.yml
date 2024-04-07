@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  conduit:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      # Ensure that the variables in .env match the same variables in devcontainer.json
+      - .env
+    volumes:
+      - ..:/workspace:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+     # Runs conduit on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:psql
+    depends_on:
+      - psql
+  psql:
+    image: postgres:latest
+    env_file:
+      # Ensure that the variables in .env match the same variables in devcontainer.json
+      - .env
+    restart: unless-stopped
+    volumes:
+      - psql_volume:/var/lib/postgresql/data
+
+volumes:
+  psql_volume:
