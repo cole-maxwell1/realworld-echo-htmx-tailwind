@@ -7,6 +7,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - &&\
     apt-get install -y nodejs
 
+# Add postman cli
+RUN curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+
 USER vscode
 # Install golang IDE Tooling
 # Language server from Google
