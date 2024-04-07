@@ -35,3 +35,7 @@ yarn-error.log*
 # Go workspace file
 go.work
 /tmp
+
+#App config ignore
+!.sample.env
+*.env*
