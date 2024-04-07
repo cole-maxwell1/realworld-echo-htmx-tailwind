@@ -1,0 +1,34 @@
+FROM mcr.microsoft.com/devcontainers/go:1-1.22-bookworm
+
+# [Optional] Uncomment this section to install additional OS packages.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive 
+
+# Install lastest nodejs LTS
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - &&\
+    apt-get install -y nodejs
+
+# Add postman cli
+RUN curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+
+USER vscode
+# Install golang IDE Tooling
+# Language server from Google
+RUN go install golang.org/x/tools/gopls@latest 
+#Generate unit tests
+RUN go install github.com/cweill/gotests/gotests@v1.6.0 
+# Modify tags on structs 
+RUN go install github.com/fatih/gomodifytags@v1.16.0 
+# Stubs for interfaces
+RUN go install github.com/josharian/impl@v1.1.0 
+# Go playground
+RUN go install github.com/haya14busa/goplay/cmd/goplay@v1.0.0 
+# Go debugger
+RUN go install github.com/go-delve/delve/cmd/dlv@latest 
+# Linter
+RUN go install honnef.co/go/tools/cmd/staticcheck@latest
+
+# Install project specific development dependencies
+RUN go install github.com/a-h/templ/cmd/templ@latest
+RUN go install github.com/cosmtrek/air@latest
+
+USER root

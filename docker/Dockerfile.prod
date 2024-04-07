@@ -1,0 +1,12 @@
+FROM golang:latest as builder
+WORKDIR /build
+COPY ./ ./
+RUN go mod download
+RUN CGO_ENABLED=0 go build -o ./conduit ./cmd/api/main.go
+
+
+FROM scratch
+WORKDIR /app
+COPY --from=builder /build/conduit ./conduit
+EXPOSE 3000
+ENTRYPOINT ["./conduit"]

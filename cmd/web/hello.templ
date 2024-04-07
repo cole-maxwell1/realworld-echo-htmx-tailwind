@@ -1,0 +1,17 @@
+package web
+
+templ HelloForm() {
+	@Base() {
+		<div class="flex flex-col gap-2 bg-zinc-800 h-1/2">
+			<form class="" hx-post="/hello" method="POST" hx-target="#hello-container">
+				<input id="name" name="name" type="text"/>
+				<button class="text-white" type="submit">Submit</button>
+			</form>
+			<div class="text-white" id="hello-container"></div>
+		</div>
+	}
+}
+
+templ HelloPost(name string) {
+	<div>Hello, { name }</div>
+}
