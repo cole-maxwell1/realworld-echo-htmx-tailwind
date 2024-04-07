@@ -12,6 +12,9 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 # Add .zshrc for theme, plugin, and path configs
 cp /workspace/.devcontainer/.zshrc $HOME/.zshrc
 
+# Setup .env
+cp /workspace/.sample.env /workspace/.env
+
 # Install project modules
 go mod download
 
