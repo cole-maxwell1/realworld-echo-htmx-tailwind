@@ -1,6 +1,8 @@
 MAIN=./cmd/api/main.go
 BINARY_NAME=conduit
 BUILD_DIR = ./tmp
+MIGRATION_PATH = ./internal/migrations/sqlite
+DB_NAME = conduit.db
 
 # Build the application
 all: build
@@ -61,3 +63,24 @@ watch:
 	fi
 
 .PHONY: all build run test clean
+
+# Migrations
+
+#Check if goose is installed
+goose-install:
+	@if ! command -v goose > /dev/null; then \
+		echo "goose is not installed. Installing..."; \
+		go install github.com/pressly/goose/v3/cmd/goose@latest; \
+	fi
+
+db-status: goose-install
+	@GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=$(DB_NAME) goose -dir=$(MIGRATION_PATH) status
+
+up: goose-install
+	@GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=$(DB_NAME) goose -dir=$(MIGRATION_PATH) up
+
+down: goose-install
+	@GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=$(DB_NAME) goose -dir=$(MIGRATION_PATH) down
+
+reset: goose-install
+	@GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=$(DB_NAME) goose -dir=$(MIGRATION_PATH) reset
