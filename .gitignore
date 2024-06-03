@@ -39,3 +39,6 @@ go.work
 #App config ignore
 !.sample.env
 *.env*
+
+# Ignore all sqlite databases
+*.db
